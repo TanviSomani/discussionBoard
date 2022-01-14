@@ -6,11 +6,28 @@ export const LoginForm = () => {
 	const [password, setPassword] = useState("");
 	const [email, setEmail] = useState("");
 
+	const userObject = { username: username, password: password, email: email };
+
 	const submit = (e) => {
 		e.preventDefault();
 
-		Meteor.loginWithPassword(username, password, (status) => {
-			console.log(status);
+		Meteor.call(
+			"findUserByUsernameNew",
+			username,
+			userObject,
+			function (error, result) {
+				if (error) {
+					console.log(error.reason);
+					return;
+				}
+				console.log(result);
+			}
+		);
+
+		Meteor.loginWithPassword(username, password, (error) => {
+			if (error != null) {
+				console.log(error.reason);
+			}
 		});
 	};
 

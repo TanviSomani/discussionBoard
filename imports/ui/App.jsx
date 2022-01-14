@@ -37,19 +37,9 @@ export const App = () => {
 		}).fetch();
 	});
 
-	const pendingFeedsCount = useTracker(() => {
-		if (!user) {
-			return 0;
-		}
-
-		return FeedsCollection.find(hideFeedFilter).count();
-	});
-
-	const pendingFeedsTitle = `${
-		pendingFeedsCount ? ` (${pendingFeedsCount})` : ""
-	}`;
-
-	const logout = () => Meteor.logout();
+	const logout = () => {
+		Meteor.logout();
+	};
 
 	return (
 		<div className="app">
@@ -58,7 +48,7 @@ export const App = () => {
 					<div className="app-header">
 						<h1>
 							Welcome to Discussion Board!
-							{pendingFeedsTitle}
+							{feeds.length > 0 ? " (" + feeds.length + ")	" : ""}
 						</h1>
 					</div>
 				</div>
@@ -67,8 +57,10 @@ export const App = () => {
 			<div className="main">
 				{user ? (
 					<Fragment>
-						<div className="user" onClick={logout}>
-							{user.username} 🚪
+						<div className="user">
+							<p>
+								{user.username} <span onClick={logout}>🚪</span>
+							</p>
 						</div>
 
 						<FeedForm user={user} />
@@ -77,9 +69,9 @@ export const App = () => {
 							<p className="mainFeed">
 								This is the main feed. You can enter the
 								comments below!
-								<p className="showEmail">
+								<span className="showEmail">
 									{user.emails[0].address}
-								</p>
+								</span>
 							</p>
 						</div>
 

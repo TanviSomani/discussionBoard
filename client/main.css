@@ -194,9 +194,14 @@ header {
 	height: 50px;
 }
 
+.mainFeed {
+	margin-left: 15px;
+}
+
 .showEmail {
 	float: right;
 	color: #62807e;
-	margin-right: 20px;
+	margin-right: 15px;
 	font-size: medium;
+	margin-top: 17px;
 }

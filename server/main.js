@@ -30,3 +30,24 @@ Meteor.startup(() => {
 		);
 	}
 });
+
+Meteor.methods({
+	findUserByUsernameNew(username, userObj) {
+		const currentUser = Accounts.findUserByUsername(username);
+
+		var result = "";
+
+		if (currentUser != null) {
+			result = "User Registered";
+		} else {
+			result = "User not Registered";
+			Accounts.createUser({
+				username: userObj.username,
+				password: userObj.password,
+				email: userObj.email,
+			});
+		}
+
+		return result;
+	},
+});

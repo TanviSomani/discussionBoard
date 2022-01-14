@@ -6,12 +6,6 @@ import { Feed } from "./Feed";
 import { FeedForm } from "./FeedForm";
 import { LoginForm } from "./LoginForm";
 
-// const tasks = [
-// 	{ _id: 1, text: "First Task" },
-// 	{ _id: 2, text: "Second Task" },
-// 	{ _id: 3, text: "Third Task" },
-// ];
-
 const toggleChecked = ({ _id, isChecked }) => {
 	FeedsCollection.update(_id, {
 		$set: {
